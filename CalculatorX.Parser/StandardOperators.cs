@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace CalculatorX.Parser {
+namespace CalculatorX.Core {
     public static class StandardOperators {
         public static readonly OperatorInfo Add = new OperatorInfo {
             Text = "+",
@@ -69,7 +69,28 @@ namespace CalculatorX.Parser {
             Eval = (context, stack) => (long)stack.Pop() & (long)stack.Pop()
         };
 
-        static readonly OperatorInfo[] _allOperators = typeof(StandardOperators).GetFields(BindingFlags.Public | BindingFlags.Static)
+        public static readonly OperatorInfo Or = new OperatorInfo {
+            Text = "|",
+            Precedence = 240,
+            Associativity = OperatorAssociativity.LeftAssociative,
+            Eval = (context, stack) => (long)stack.Pop() | (long)stack.Pop()
+        };
+
+        public static readonly OperatorInfo Xor = new OperatorInfo {
+            Text = "^",
+            Precedence = 240,
+            Associativity = OperatorAssociativity.LeftAssociative,
+            Eval = (context, stack) => (long)stack.Pop() ^ (long)stack.Pop()
+        };
+
+        public static readonly OperatorInfo Not = new OperatorInfo {
+            Text = "~",
+            Precedence = 300,
+            Eval = (context, stack) => ~(long)stack.Pop()
+        };
+
+        static readonly OperatorInfo[] _allOperators = typeof(StandardOperators)
+            .GetFields(BindingFlags.Public | BindingFlags.Static)
             .Select(fi => fi.GetValue(null)).Cast<OperatorInfo>().ToArray();
 
         public static OperatorInfo[] GetAllOperators() => _allOperators;

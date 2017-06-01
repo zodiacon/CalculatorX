@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CalculatorX.Parser {
+namespace CalculatorX.Core {
     public sealed class Tokenizer {
         enum State { None, Number, NumebrWithExp, Text, Operator, Function };
 
         public IEnumerable<Token> Tokenize(string text) {
+            if (string.IsNullOrWhiteSpace(text))
+                yield break;
+
             State state = State.None;
             string lexeme = string.Empty;
             Token previousToken = null;
@@ -23,7 +26,7 @@ namespace CalculatorX.Parser {
                             break;
 
                         if (ch == ')' || ch == '(') {
-                            yield return (previousToken = new OperatorToken(ch.ToString(), OperatorType.Paren));
+                            yield return (previousToken = new OperatorToken(ch.ToString()));
                             break;
                         }
 
@@ -47,7 +50,7 @@ namespace CalculatorX.Parser {
                             break;
                         }
 
-                        if (char.IsDigit(ch)) {
+                        if (ch =='.' || char.IsDigit(ch)) {
                             // number
                             lexeme += ch;
                             state = State.Number;
@@ -104,10 +107,13 @@ namespace CalculatorX.Parser {
                     case State.NumebrWithExp:
                         if (ch == '+' || ch == '-') {
                             // exponent sign
-                            if (lexeme.IndexOf(ch) > 0) {
-                                // already have one - error
-                                yield return new InvalidToken(lexeme + ch);
-                                yield break;
+                            if(lexeme.Last() != 'e' && lexeme.Last() != 'E') {
+                                // must be right after 'E' - if not - probably operator
+                               
+                                yield return new NumberToken(lexeme, double.Parse(lexeme));
+                                lexeme = ch.ToString();
+                                state = State.Operator;
+                                break;
                             }
                             lexeme += ch;
                             break;
@@ -156,7 +162,7 @@ namespace CalculatorX.Parser {
                         }
                         else {
                             // end of operator
-                            yield return (previousToken = new OperatorToken(lexeme, StringToOperatorType(lexeme)));
+                            yield return (previousToken = new OperatorToken(lexeme));
                             state = State.None;
                             i--;
                             lexeme = string.Empty;
@@ -184,12 +190,5 @@ namespace CalculatorX.Parser {
             return operators.Contains(ch);
         }
 
-        private OperatorType StringToOperatorType(string lexeme) {
-            switch (lexeme) {
-                case "+": return OperatorType.Add;
-                case "-": return OperatorType.Subtract;
-            }
-            return OperatorType.Unknown;
-        }
     }
 }

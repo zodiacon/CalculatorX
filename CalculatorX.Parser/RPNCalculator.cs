@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace CalculatorX.Parser {
+namespace CalculatorX.Core {
     public class RPNCalculator {
         IEvaluationContext Context;
         public RPNCalculator(IEvaluationContext context) {

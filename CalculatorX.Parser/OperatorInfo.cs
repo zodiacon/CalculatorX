@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CalculatorX.Parser {
+namespace CalculatorX.Core {
     public enum OperatorAssociativity {
         LeftAssociative,
         RightAssociative
@@ -12,6 +13,7 @@ namespace CalculatorX.Parser {
 
     public delegate double OperatorDelegate(IEvaluationContext context, Stack<double> stack);
 
+    [DebuggerDisplay("Operator={Text}")]
     public class OperatorInfo {
         public string Text { get; set; }
         public int Precedence { get; set; }

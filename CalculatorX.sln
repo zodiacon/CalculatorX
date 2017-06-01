@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+VisualStudioVersion = 15.0.26430.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalcX", "CalcX\CalcX.csproj", "{85664127-90FF-4720-A069-B2A88E4D35FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorX.Parser", "CalculatorX.Parser\CalculatorX.Parser.csproj", "{C7C8F128-F5C1-4D58-ACFD-9874080341FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorX.Core", "CalculatorX.Parser\CalculatorX.Core.csproj", "{C7C8F128-F5C1-4D58-ACFD-9874080341FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XCalc", "XCalc\XCalc.csproj", "{655F044D-A806-4066-AE97-3D282530771F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{C7C8F128-F5C1-4D58-ACFD-9874080341FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7C8F128-F5C1-4D58-ACFD-9874080341FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7C8F128-F5C1-4D58-ACFD-9874080341FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{655F044D-A806-4066-AE97-3D282530771F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{655F044D-A806-4066-AE97-3D282530771F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{655F044D-A806-4066-AE97-3D282530771F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{655F044D-A806-4066-AE97-3D282530771F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

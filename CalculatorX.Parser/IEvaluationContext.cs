@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CalculatorX.Parser {
+namespace CalculatorX.Core {
     public enum DegreesMode {
         Degrees,
         Radians

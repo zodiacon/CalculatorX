@@ -49,9 +49,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CalculatorX.Parser\CalculatorX.Parser.csproj">
+    <ProjectReference Include="..\CalculatorX.Parser\CalculatorX.Core.csproj">
       <Project>{c7c8f128-f5c1-4d58-acfd-9874080341fb}</Project>
-      <Name>CalculatorX.Parser</Name>
+      <Name>CalculatorX.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

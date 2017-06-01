@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CalculatorX.Parser {
+namespace CalculatorX.Core {
     public class FunctionInfo {
         public readonly FunctionDelegate Delegate;
         public readonly int Arguments;
@@ -77,9 +77,16 @@ namespace CalculatorX.Parser {
             SetFunctionExpression("tan", (ctx, x) => Math.Tan(ctx.DegreeMode == DegreesMode.Degrees ? x[0] * Math.PI / 180 : x[0]));
             SetFunctionExpression("cot", (ctx, x) => 1.0 / Math.Tan(ctx.DegreeMode == DegreesMode.Degrees ? x[0] * Math.PI / 180 : x[0]));
             SetFunctionExpression("ln", (ctx, x) => Math.Log(x[0]));
+            SetFunctionExpression("log", (ctx, x) => Math.Log10(x[0]));
             SetFunctionExpression("exp", (ctx, x) => Math.Exp(x[0]));
             SetFunctionExpression("max", (ctx, x) => Math.Max(x[0], x[1]), 2);
             SetFunctionExpression("min", (ctx, x) => Math.Min(x[0], x[1]), 2);
+            SetFunctionExpression("sqr", (ctx, x) => x[0] * x[0]);
+            SetFunctionExpression("sqrt", (ctx, x) => Math.Sqrt(x[0]));
+            SetFunctionExpression("asin", (ctx, x) => Math.Asin(x[0]) * (ctx.DegreeMode == DegreesMode.Degrees ? 180 / Math.PI : 1));
+            SetFunctionExpression("acos", (ctx, x) => Math.Acos(x[0]) * (ctx.DegreeMode == DegreesMode.Degrees ? 180 / Math.PI : 1));
+            SetFunctionExpression("atan", (ctx, x) => Math.Atan(x[0]) * (ctx.DegreeMode == DegreesMode.Degrees ? 180 / Math.PI : 1));
+            SetFunctionExpression("atan2", (ctx, x) => Math.Atan2(x[0], x[10]) * (ctx.DegreeMode == DegreesMode.Degrees ? 180 / Math.PI : 1));
         }
     }
 }

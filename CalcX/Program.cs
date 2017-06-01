@@ -1,4 +1,4 @@
-﻿using CalculatorX.Parser;
+﻿using CalculatorX.Core;
 using System;
 using System.Linq.Expressions;
 
@@ -6,6 +6,8 @@ namespace CalcX {
     class Program {
         static void Main(string[] args) {
             Console.Title = "CalcX (C)2017 by Pavel Yosifovich";
+            Console.WriteLine("Welcome to CalcX! Enter $help for some brief help.");
+            Console.WriteLine();
 
             var context = new EvaluationContext();
             var calculator = new RPNCalculator(context);
@@ -16,6 +18,9 @@ namespace CalcX {
                 var input = Console.ReadLine();
                 if (input.ToLowerInvariant() == "exit")
                     break;
+
+                if (string.IsNullOrWhiteSpace(input))
+                    continue;
 
                 if (input[0] == '$') {
                     HandleSpecialCommand(context, input);
@@ -62,8 +67,13 @@ namespace CalcX {
                     }
                     break;
 
+                case "$HELP":
+                    Console.WriteLine("CalcX is a normal calculator, with support for functions and variables." +
+                        "Meta commands start with '$': $rad, $deg, $var, $const, $set");
+                    break;
+
                 default:
-                    Console.WriteLine("Unknown directive.");
+                    Console.WriteLine("Unknown directive. Enter $help for some help.");
                     break;
             }
         }

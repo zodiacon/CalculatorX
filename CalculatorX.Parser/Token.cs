@@ -5,28 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CalculatorX.Parser {
+namespace CalculatorX.Core {
     public enum TokenType {
         Invalid,
         Number,
         Variable,
         Operator,
         Function
-    }
-
-    public enum OperatorType {
-        Unknown,
-        Add,
-        Subtract,
-        Multiply,
-        Divide,
-        Modulu,
-        Power,
-        And,
-        Or,
-        Xor,
-        Not,
-        Paren
     }
 
     [DebuggerDisplay("Type={GetType().Name}, Text={Text}")]
@@ -56,10 +41,7 @@ namespace CalculatorX.Parser {
     }
 
     public sealed class OperatorToken : Token {
-        public OperatorType Operator { get; }
-
-        public OperatorToken(string text, OperatorType @operator) : base(text, TokenType.Operator) {
-            Operator = @operator;
+        public OperatorToken(string text) : base(text, TokenType.Operator) {
         }
     }
 
