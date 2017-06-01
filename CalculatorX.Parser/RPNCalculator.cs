@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace CalculatorX.Core {
     public class RPNCalculator {
-        IEvaluationContext Context;
+        public readonly IEvaluationContext Context;
         public RPNCalculator(IEvaluationContext context) {
             Context = context;
         }

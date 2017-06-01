@@ -12,6 +12,7 @@ namespace CalcX {
             var context = new EvaluationContext();
             var calculator = new RPNCalculator(context);
             var tokenizer = new Tokenizer();
+            var parser = new Parser(calculator);
 
             do {
                 Console.Write(">> ");
@@ -28,7 +29,7 @@ namespace CalcX {
                     continue;
                 }
                 try {
-                    var result = calculator.CalculateFromInfix(tokenizer.Tokenize(input));
+                    var result = parser.Parse(tokenizer.Tokenize(input));
                     Console.WriteLine(result);
                     context.SetVariableValue("ans", result);
                 }
@@ -68,8 +69,8 @@ namespace CalcX {
                     break;
 
                 case "$HELP":
-                    Console.WriteLine("CalcX is a normal calculator, with support for functions and variables." +
-                        "Meta commands start with '$': $rad, $deg, $var, $const, $set");
+                    Console.WriteLine("CalcX is a normal calculator, with support for functions and variables.");
+                    Console.WriteLine("Meta commands start with '$': $rad, $deg, $var, $const, $set");
                     break;
 
                 default:

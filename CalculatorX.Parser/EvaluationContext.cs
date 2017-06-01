@@ -49,7 +49,9 @@ namespace CalculatorX.Core {
             if (_constants.TryGetValue(name, out var value))
                 return value;
 
-            return _variables[name];
+            if (_variables.TryGetValue(name, out value))
+                return value;
+            throw new ArgumentException($"Unknown variable or constant: '{name}'");
         }
 
         public void SetConstantValue(string name, double value) {
