@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CalculatorX.Core
-{
-    public class Class1
-    {
+namespace CalculatorX.Parser {
+    public interface IOperator {
+        double Eval(Stack<double> stack);
     }
 }
