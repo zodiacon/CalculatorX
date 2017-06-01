@@ -81,12 +81,13 @@ namespace CalculatorX.Core {
             SetFunctionExpression("exp", (ctx, x) => Math.Exp(x[0]));
             SetFunctionExpression("max", (ctx, x) => Math.Max(x[0], x[1]), 2);
             SetFunctionExpression("min", (ctx, x) => Math.Min(x[0], x[1]), 2);
+            SetFunctionExpression("sign", (ctx, x) => Math.Sign(x[0]));
             SetFunctionExpression("sqr", (ctx, x) => x[0] * x[0]);
             SetFunctionExpression("sqrt", (ctx, x) => Math.Sqrt(x[0]));
             SetFunctionExpression("asin", (ctx, x) => Math.Asin(x[0]) * (ctx.DegreeMode == DegreesMode.Degrees ? 180 / Math.PI : 1));
             SetFunctionExpression("acos", (ctx, x) => Math.Acos(x[0]) * (ctx.DegreeMode == DegreesMode.Degrees ? 180 / Math.PI : 1));
             SetFunctionExpression("atan", (ctx, x) => Math.Atan(x[0]) * (ctx.DegreeMode == DegreesMode.Degrees ? 180 / Math.PI : 1));
-            SetFunctionExpression("atan2", (ctx, x) => Math.Atan2(x[0], x[10]) * (ctx.DegreeMode == DegreesMode.Degrees ? 180 / Math.PI : 1));
+            SetFunctionExpression("atan2", (ctx, x) => Math.Atan2(x[0], x[1]) * (ctx.DegreeMode == DegreesMode.Degrees ? 180 / Math.PI : 1));
         }
     }
 }

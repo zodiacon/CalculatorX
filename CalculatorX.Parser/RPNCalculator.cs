@@ -68,15 +68,27 @@ namespace CalculatorX.Core {
                         output.Enqueue(token);
                         break;
 
+                    case OperatorToken _ when token.Text == ",":
+                        // function argument separator
+                        while (stack.Count > 0 && stack.Peek().Text != "(") {
+                            output.Enqueue(stack.Pop());
+                        }
+                        if (stack.Count == 0)
+                            throw new ArgumentException("Unexpected ','");
+                        break;
+
                     case OperatorToken _ when token.Text == "(":
                         stack.Push(token);
                         break;
 
                     case OperatorToken _ when token.Text == ")":
                         try {
+                            int args = 0;
                             while (stack.Peek().Text != "(") {
                                 output.Enqueue(stack.Pop());
+                                args++;
                             }
+                            
                         }
                         catch (InvalidOperationException) {
                             // no left paren - mismatch

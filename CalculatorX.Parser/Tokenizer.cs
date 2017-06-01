@@ -184,7 +184,7 @@ namespace CalculatorX.Core {
             return i == text.Length ? '\0' : text[i];
         }
 
-        const string operators = @"+-<>()*/\^%&|~#@!=";
+        const string operators = @"+-<>(),*/%^%&|~#@!=";
         
         bool IsOperator(char ch) {
             return operators.Contains(ch);

@@ -83,6 +83,28 @@ namespace CalculatorX.Core {
             Eval = (context, stack) => (long)stack.Pop() ^ (long)stack.Pop()
         };
 
+        public static readonly OperatorInfo ShiftLeft = new OperatorInfo {
+            Text = "<<",
+            Precedence = 180,
+            Associativity = OperatorAssociativity.LeftAssociative,
+            Eval = (context, stack) => {
+                var b = (int)stack.Pop();
+                var a = (long)stack.Pop();
+                return a << b;
+            }
+        };
+
+        public static readonly OperatorInfo ShiftRight = new OperatorInfo {
+            Text = ">>",
+            Precedence = 180,
+            Associativity = OperatorAssociativity.LeftAssociative,
+            Eval = (context, stack) => {
+                var b = (int)stack.Pop();
+                var a = (long)stack.Pop();
+                return a >> b;
+            }
+        };
+
         public static readonly OperatorInfo Not = new OperatorInfo {
             Text = "~",
             Precedence = 300,
