@@ -14,7 +14,6 @@ namespace CalculatorX.Parser {
 
     public class OperatorInfo {
         public string Text { get; set; }
-        public OperatorType Type { get; set; }
         public int Precedence { get; set; }
         public OperatorAssociativity Associativity { get; set; }
         public OperatorDelegate Eval { get; set; }

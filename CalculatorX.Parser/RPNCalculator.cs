@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -55,7 +56,6 @@ namespace CalculatorX.Parser {
         public double CalculateFromInfix(IEnumerable<Token> tokens) {
             var output = new Queue<Token>(16);
             var stack = new Stack<Token>(16);
-            //var operatorStack = new Stack<Token>(16);
 
             foreach (var token in tokens) {
                 switch (token) {
@@ -85,7 +85,7 @@ namespace CalculatorX.Parser {
 
                         stack.Pop();    // left paren popped
 
-                        if (stack.Peek().Type == TokenType.Function) {
+                        if (stack.Count > 0 && stack.Peek().Type == TokenType.Function) {
                             output.Enqueue(stack.Pop());
                         }
 
@@ -93,6 +93,9 @@ namespace CalculatorX.Parser {
 
                     case OperatorToken op:
                         var operatorInfo = OperatorMap[op.Text];
+                        Debug.Assert(operatorInfo != null);
+                        if (operatorInfo == null)
+                            throw new ArgumentException($"Unknown operator: '{op.Text}'");
 
                         if (stack.Count > 0) {
                             for (var op2 = stack.Peek() as OperatorToken; op2 != null && op2.Text != "(" && op2.Text != ")" &&

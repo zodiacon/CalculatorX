@@ -25,6 +25,8 @@ namespace CalculatorX.Parser {
             // add common variables
             SetConstantValue("pi", Math.PI);
             SetConstantValue("e", Math.E);
+
+            AddStandardFunctions();
         }
 
         public IReadOnlyList<string> Constants => _constants.Keys.ToList();
@@ -55,7 +57,7 @@ namespace CalculatorX.Parser {
             _constants.Add(name, value);
         }
 
-        public void SetFunctionExpression(string name, FunctionDelegate body, int arguments) {
+        public void SetFunctionExpression(string name, FunctionDelegate body, int arguments = 1) {
             _functions[name] = new FunctionInfo(body, arguments);
         }
 
@@ -67,6 +69,17 @@ namespace CalculatorX.Parser {
         private void FailIfConstant(string name) {
             if (_constants.ContainsKey(name))
                 throw new InvalidOperationException($"constant {name} cannot be changed");
+        }
+
+        void AddStandardFunctions() {
+            SetFunctionExpression("sin", (ctx, x) => Math.Sin(ctx.DegreeMode == DegreesMode.Degrees ? x[0] * Math.PI / 180 : x[0]));
+            SetFunctionExpression("cos", (ctx, x) => Math.Cos(ctx.DegreeMode == DegreesMode.Degrees ? x[0] * Math.PI / 180 : x[0]));
+            SetFunctionExpression("tan", (ctx, x) => Math.Tan(ctx.DegreeMode == DegreesMode.Degrees ? x[0] * Math.PI / 180 : x[0]));
+            SetFunctionExpression("cot", (ctx, x) => 1.0 / Math.Tan(ctx.DegreeMode == DegreesMode.Degrees ? x[0] * Math.PI / 180 : x[0]));
+            SetFunctionExpression("ln", (ctx, x) => Math.Log(x[0]));
+            SetFunctionExpression("exp", (ctx, x) => Math.Exp(x[0]));
+            SetFunctionExpression("max", (ctx, x) => Math.Max(x[0], x[1]), 2);
+            SetFunctionExpression("min", (ctx, x) => Math.Min(x[0], x[1]), 2);
         }
     }
 }

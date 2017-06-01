@@ -5,33 +5,67 @@ using System.Linq.Expressions;
 namespace CalcX {
     class Program {
         static void Main(string[] args) {
+            Console.Title = "CalcX (C)2017 by Pavel Yosifovich";
+
             var context = new EvaluationContext();
-            context.SetVariableValue("x", 5);
-
-            var rpnCalc = new RPNCalculator(context);
-            var result = rpnCalc.Calculate(new NumberToken("10", 10), new VariableToken("x"), new OperatorToken("+", OperatorType.Add));
-            Console.WriteLine(result);
-
-            var text = "12.9+5-3.12*cos(12) + zzz";
+            var calculator = new RPNCalculator(context);
             var tokenizer = new Tokenizer();
-            foreach (var token in tokenizer.Tokenize(text)) {
-                Console.WriteLine($"{token.Text} {token.GetType().Name}");
+
+            do {
+                Console.Write(">> ");
+                var input = Console.ReadLine();
+                if (input.ToLowerInvariant() == "exit")
+                    break;
+
+                if (input[0] == '$') {
+                    HandleSpecialCommand(context, input);
+                    Console.WriteLine();
+                    continue;
+                }
+                try {
+                    var result = calculator.CalculateFromInfix(tokenizer.Tokenize(input));
+                    Console.WriteLine(result);
+                    context.SetVariableValue("ans", result);
+                }
+                catch (Exception ex) {
+                    Console.WriteLine(ex.Message);
+                }
+                Console.WriteLine();
+            } while (true);
+        }
+
+        private static void HandleSpecialCommand(IEvaluationContext context, string input) {
+            switch (input.ToUpper()) {
+                case "$RAD":
+                    context.DegreeMode = DegreesMode.Radians;
+                    Console.WriteLine("Degree mode set to radians.");
+                    break;
+
+                case "$DEG":
+                    context.DegreeMode = DegreesMode.Degrees;
+                    Console.WriteLine("Degree mode set to degrees.");
+                    break;
+
+                case string set when set.StartsWith("$SET"):
+                    Console.WriteLine($"Mode={context.DegreeMode}");
+                    break;
+
+                case "$VAR":
+                    foreach (var name in context.Variables) {
+                        Console.WriteLine($"{name}={context.GetVariableValue(name)}");
+                    }
+                    break;
+
+                case "$CONST":
+                    foreach (var name in context.Constants) {
+                        Console.WriteLine($"{name}={context.GetVariableValue(name)}");
+                    }
+                    break;
+
+                default:
+                    Console.WriteLine("Unknown directive.");
+                    break;
             }
-
-            context.SetFunctionExpression("sin", (ctx, x) => Math.Sin(ctx.DegreeMode == DegreesMode.Degrees ? x[0] * Math.PI / 180 : x[0]), 1);
-            context.SetFunctionExpression("sin", (ctx, x) => Math.Sin(ctx.DegreeMode == DegreesMode.Degrees ? x[0] * Math.PI / 180 : x[0]), 1);
-
-            var expr = "3+4-(2-4)+sin(30)";
-            result = rpnCalc.CalculateFromInfix(tokenizer.Tokenize(expr));
-            Console.WriteLine($"{expr}={result}");
-
-            expr = "3+(sin(60)-4) +sin(30)";
-            result = rpnCalc.CalculateFromInfix(tokenizer.Tokenize(expr));
-            Console.WriteLine($"{expr}={result}");
-
-            expr = "3*12+2**3";
-            result = rpnCalc.CalculateFromInfix(tokenizer.Tokenize(expr));
-            Console.WriteLine($"{expr}={result}");
         }
     }
 }

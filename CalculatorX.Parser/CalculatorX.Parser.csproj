@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="EvaluationContext.cs" />
     <Compile Include="IEvaluationContext.cs" />
-    <Compile Include="IOperator.cs" />
     <Compile Include="OperatorInfo.cs" />
     <Compile Include="RPNCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
