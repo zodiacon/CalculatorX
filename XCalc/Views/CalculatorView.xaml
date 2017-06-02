@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="XCalc.Views.CalculatorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ie="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:z="http://zodiacon.wpf/2016"
+             xmlns:local="clr-namespace:XCalc.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="6" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <!--<Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>-->
+
+        <ToolBar>
+            <Button Command="Copy" ToolTip="Copy">
+                <Image Source="/icons/copy.ico" Width="24" Height="24" />
+            </Button>
+            <Button Command="Paste" ToolTip="Paste">
+                <Image Source="/icons/paste.ico" Width="24" Height="24" />
+            </Button>
+            <Separator />
+            <RadioButton Content="DEG" IsChecked="{Binding IsDegrees}" Width="40" />
+            <RadioButton Content="RAD" IsChecked="{Binding IsRadians}" Width="40" />
+            <Separator />
+            <Button Command="{Binding ClearHistoryCommand}" ToolTip="Clear History">
+                <Image Source="/icons/clear.ico" Width="24" Height="24" />
+            </Button>
+
+        </ToolBar>
+
+        <TextBox Grid.Row="1" FontFamily="Consolas" IsReadOnly="True" AcceptsReturn="True" Text="{Binding HistoryText}" VerticalScrollBarVisibility="Auto"
+                 IsReadOnlyCaretVisible="True" IsInactiveSelectionHighlightEnabled="True">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <ie:CallMethodAction MethodName="ScrollToEnd" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+        </TextBox>
+        <DockPanel Grid.Row="3">
+            <Button Content="Calculate" IsDefault="True" DockPanel.Dock="Right" Margin="4,0" Command="{Binding CalculateCommand}"  />
+            <TextBlock Text=">> " DockPanel.Dock="Left" VerticalAlignment="Center"/>
+            <TextBox Text="{Binding Text, UpdateSourceTrigger=PropertyChanged, Delay=100}" VerticalContentAlignment="Center" metro:TextBoxHelper.Watermark="Enter calculation" 
+                     metro:TextBoxHelper.ClearTextButton="True" z:FocusProperties.FocusOnLoad="True" x:Name="tb" FontWeight="Bold" FontFamily="Consolas" VerticalAlignment="Center"
+                     UndoLimit="16">
+                <i:Interaction.Behaviors>
+                    <z:FocusOnKeyDownBehavior Key="Esc" IsPreview="True" />
+                </i:Interaction.Behaviors>
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Down" Command="{Binding HistoryDownCommand}" />
+                    <KeyBinding Key="Up" Command="{Binding HistoryUpCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
+        </DockPanel>
+    </Grid>
+</UserControl>

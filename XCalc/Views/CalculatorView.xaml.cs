@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace XCalc {
+namespace XCalc.Views {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for CalculatorView.xaml
     /// </summary>
-    public partial class MainWindow {
-        public MainWindow() {
+    public partial class CalculatorView : UserControl {
+        public CalculatorView() {
             InitializeComponent();
         }
     }

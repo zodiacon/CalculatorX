@@ -70,11 +70,14 @@ namespace CalculatorX.Core {
 
                     case OperatorToken _ when token.Text == ",":
                         // function argument separator
+                        int count = 0;
                         while (stack.Count > 0 && stack.Peek().Text != "(") {
                             output.Enqueue(stack.Pop());
+                            count++;
                         }
                         if (stack.Count == 0)
                             throw new ArgumentException("Unexpected ','");
+                        //output.Enqueue(new NumberToken(null, count));
                         break;
 
                     case OperatorToken _ when token.Text == "(":
