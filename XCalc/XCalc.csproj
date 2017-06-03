@@ -36,17 +36,21 @@
   <ItemGroup>
     <Reference Include="MahApps.Metro, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.0-alpha002\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Prism, Version=6.3.0.0, Culture=neutral, PublicKeyToken=40ee6c3a2184dc59, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.0-alpha002\lib\net45\System.Windows.Interactivity.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -62,6 +66,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="Zodiacon.WPF, Version=1.1.6323.29814, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Zodiacon.WPF.1.2.3\lib\net45\Zodiacon.WPF.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -129,6 +134,7 @@
     <ProjectReference Include="..\CalculatorX.Parser\CalculatorX.Core.csproj">
       <Project>{c7c8f128-f5c1-4d58-acfd-9874080341fb}</Project>
       <Name>CalculatorX.Core</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +152,28 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\Clear.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\CalculatorX.Parser\bin\Release\CalculatorX.Core.dll">
+      <Link>Assemblies\CalculatorX.Core.dll</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\packages\MahApps.Metro.1.6.0-alpha002\lib\net45\MahApps.Metro.dll">
+      <Link>Assemblies\MahApps.Metro.dll</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\packages\MahApps.Metro.1.6.0-alpha002\lib\net45\System.Windows.Interactivity.dll">
+      <Link>Assemblies\System.Windows.Interactivity.dll</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\packages\Prism.Core.6.3.0\lib\net45\Prism.dll">
+      <Link>Assemblies\Prism.dll</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\packages\Zodiacon.WPF.1.2.3\lib\net45\Zodiacon.WPF.dll">
+      <Link>Assemblies\Zodiacon.WPF.dll</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\Program Files %28x86%29\Microsoft SDKs\Expression\Blend\.NETFramework\v4.5\Libraries\Microsoft.Expression.Interactions.dll">
+      <Link>Assemblies\Microsoft.Expression.Interactions.dll</Link>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
