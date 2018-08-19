@@ -15,7 +15,7 @@ namespace CalculatorX.Core {
             StandardOperators.GetAllOperators().ToDictionary(op => op.Text);
 
         public double Calculate(IEnumerable<Token> tokens) {
-            Stack<double> stack = new Stack<double>(16);
+            var stack = new Stack<double>(16);
 
             foreach (var token in tokens) {
                 switch (token) {
@@ -47,10 +47,6 @@ namespace CalculatorX.Core {
             }
 
             return stack.Peek();
-        }
-
-        public double Calculate(params Token[] tokens) {
-            return Calculate((IEnumerable<Token>)(tokens));
         }
 
         public double CalculateFromInfix(IEnumerable<Token> tokens) {
