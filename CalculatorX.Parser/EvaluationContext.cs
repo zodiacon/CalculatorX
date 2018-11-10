@@ -17,9 +17,9 @@ namespace CalculatorX.Core {
     }
 
     public class EvaluationContext : IEvaluationContext {
-        Dictionary<string, double> _variables = new Dictionary<string, double>(64, StringComparer.InvariantCultureIgnoreCase);
-        Dictionary<string, double> _constants = new Dictionary<string, double>(8, StringComparer.InvariantCultureIgnoreCase);
-        Dictionary<string,  FunctionInfo> _functions = new Dictionary<string, FunctionInfo>(64, StringComparer.InvariantCultureIgnoreCase);
+        readonly Dictionary<string, double> _variables = new Dictionary<string, double>(64, StringComparer.InvariantCultureIgnoreCase);
+        readonly Dictionary<string, double> _constants = new Dictionary<string, double>(8, StringComparer.InvariantCultureIgnoreCase);
+        readonly Dictionary<string,  FunctionInfo> _functions = new Dictionary<string, FunctionInfo>(64, StringComparer.InvariantCultureIgnoreCase);
 
         public EvaluationContext() {
             // add common variables
@@ -30,12 +30,10 @@ namespace CalculatorX.Core {
         }
 
         public IReadOnlyList<string> Constants => _constants.Keys.ToList();
-
-        public IReadOnlyList<string> Variables => _variables.Keys.ToList();
-
+        public IReadOnlyList<string> Variables => _variables.Keys.ToList();			
         public IReadOnlyList<string> Functions => _functions.Keys.ToList();
 
-        public DegreesMode DegreeMode { get; set; } = DegreesMode.Degrees;
+		public DegreesMode DegreeMode { get; set; } = DegreesMode.Degrees;
 
         public double EvalFunction(string name, params double[] args) {
             return _functions[name].Delegate(this, args);
@@ -59,8 +57,8 @@ namespace CalculatorX.Core {
             _constants.Add(name, value);
         }
 
-        public void SetFunctionExpression(string name, FunctionDelegate body, int arguments = 1) {
-            _functions[name] = new FunctionInfo(body, arguments);
+        public void SetFunctionExpression(string name, FunctionDelegate body, int args = 1) {
+            _functions[name] = new FunctionInfo(body, args);
         }
 
         public virtual void SetVariableValue(string name, double value) {
