@@ -1,5 +1,6 @@
 ﻿using CalculatorX.Core;
 using System;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace CalcX {
@@ -29,7 +30,7 @@ namespace CalcX {
                     continue;
                 }
                 try {
-                    var result = parser.Parse(tokenizer.Tokenize(input));
+                    var result = parser.Parse(tokenizer.Tokenize(input).ToArray());
                     Console.WriteLine(result);
                     context.SetVariableValue("ans", result);
                 }

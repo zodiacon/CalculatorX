@@ -44,7 +44,7 @@ namespace XCalc.ViewModels {
         }
         private void DoCalculation() {
             try {
-                var result = _parser.Parse(_tokenizer.Tokenize(Text));
+                var result = _parser.Parse(_tokenizer.Tokenize(Text).ToArray());
                 _context.SetVariableValue("ans", result);
                 HistoryText += Text + Environment.NewLine + result.ToString();
             }
