@@ -7,8 +7,8 @@
         xmlns:local="clr-namespace:XCalc"
         xmlns:view="clr-namespace:XCalc.Views"
         mc:Ignorable="d"
-        Title="XCalc (C)2017 by Pavel Yosifovich" MinHeight="250" MinWidth="400" Width="640" Height="480"
-        Icon="/icons/calculator.ico"
+        Title="XCalc (C)2017-2020 by Pavel Yosifovich" MinHeight="250" MinWidth="400" Width="640" Height="480"
+        Icon="/icons/calculator.ico" ResizeMode="CanResizeWithGrip"
         TitleCaps="False" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1">
     <view:MainView>
     </view:MainView>

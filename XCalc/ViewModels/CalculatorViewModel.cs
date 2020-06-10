@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace XCalc.ViewModels {
     class CalculatorViewModel : BindableBase {
-        RPNCalculator _calculator;
-        IEvaluationContext _context;
-        Parser _parser;
-        Tokenizer _tokenizer = new Tokenizer();
+        readonly RPNCalculator _calculator;
+        readonly IEvaluationContext _context;
+        readonly Parser _parser;
+        readonly Tokenizer _tokenizer = new Tokenizer();
         static string NewLine = Environment.NewLine + Environment.NewLine;
-        List<string> _expressionHistory = new List<string>(64);
+        readonly List<string> _expressionHistory = new List<string>(64);
         int _expressionHistoryIndex;
 
         public CalculatorViewModel() {
@@ -46,7 +46,7 @@ namespace XCalc.ViewModels {
             try {
                 var result = _parser.Parse(_tokenizer.Tokenize(Text).ToArray());
                 _context.SetVariableValue("ans", result);
-                HistoryText += Text + Environment.NewLine + result.ToString();
+                HistoryText += ">> " + Text + Environment.NewLine + result.ToString();
             }
             catch (Exception ex) {
                 HistoryText += Text + Environment.NewLine + ex.Message;
